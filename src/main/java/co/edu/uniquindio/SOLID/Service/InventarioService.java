@@ -86,7 +86,7 @@ public class InventarioService {
     public List<MovimientoInventario> listarMovimientos() {
         return movimientoInventarioService.listarTodos();
     }
-
+//acaa
 
     public List<MovimientoInventario> listarMovimientosPorProducto(String sku) {
         return movimientoInventarioService.listarPorProducto(sku);
