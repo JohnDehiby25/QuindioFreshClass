@@ -16,6 +16,9 @@ public class Proveedor {
         this.telefono = telefono;
         this.activo = true;
     }
+    public Proveedor(){
+
+    }
 
     public String getNit() { return nit; }
     public String getNombre() { return nombre; }
@@ -44,6 +47,14 @@ public class Proveedor {
     @Override
     public String toString() {
         return nombre != null ? nombre : (nit != null ? nit : "");
+    }
+
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+
+    public void setActivo(boolean activo) {
+        this.activo=activo;
     }
 }
 

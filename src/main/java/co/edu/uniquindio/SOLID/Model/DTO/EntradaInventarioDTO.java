@@ -1,16 +1,17 @@
 package co.edu.uniquindio.SOLID.Model.DTO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class EntradaInventarioDTO {
 
     private String id;
-    private LocalDate fecha;
+    private LocalDateTime fecha;
     private String nitProveedor;
-    private ArrayList<ItemEntradaDTO> listEntradasDTO= new ArrayList<>();
+    private ArrayList<ItemEntradaDTO> listEntradasDTO;
 
-    public EntradaInventarioDTO(String id, LocalDate fecha, String nitProveedor) {
+    public EntradaInventarioDTO(String id, LocalDateTime fecha, String nitProveedor) {
         this.id = id;
         this.fecha = fecha;
         this.nitProveedor = nitProveedor;
@@ -41,11 +42,11 @@ public class EntradaInventarioDTO {
         this.listEntradasDTO = listEntradasDTO;
     }
 
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 }

@@ -21,6 +21,30 @@ public class EntradaInventario {
         this.movimientosGenerados = new ArrayList<>();
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public void setItems(List<ItemEntrada> items) {
+        this.items = items;
+    }
+
+    public void setConfirmada(boolean confirmada) {
+        this.confirmada = confirmada;
+    }
+
+    public void setMovimientosGenerados(List<MovimientoInventario> movimientosGenerados) {
+        this.movimientosGenerados = movimientosGenerados;
+    }
+
     public String getId() { return id; }
     public Proveedor getProveedor() { return proveedor; }
     public LocalDateTime getFecha() { return fecha; }
