@@ -94,4 +94,12 @@ public class ProductoService {
         }
         return null;
     }
+    public void aumentarStock(String sku, int cantidad) {
+        Producto producto = buscarProducto(sku);
+        if (producto != null) {
+            producto.setStock(producto.getStock() + cantidad);
+        }
+    }
+
+
 }
