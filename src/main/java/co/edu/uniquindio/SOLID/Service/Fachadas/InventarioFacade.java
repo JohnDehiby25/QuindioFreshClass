@@ -7,6 +7,7 @@ import co.edu.uniquindio.SOLID.Model.DTO.ProveedorDTO;
 import co.edu.uniquindio.SOLID.Service.InventarioService;
 import co.edu.uniquindio.SOLID.Service.ProductoService;
 import co.edu.uniquindio.SOLID.Service.ProveedorService;
+import co.edu.uniquindio.SOLID.Service.MovimientoInventarioService;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class InventarioFacade {
 
     // Productos
     public List<ProductoDTO> listarProductos() {
-        return productoService.listarProductos();
+        return productoService.obtenerTodosLosProductos();
     }
 
     // Inventario

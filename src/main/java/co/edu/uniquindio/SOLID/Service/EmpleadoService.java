@@ -1,48 +1,70 @@
 package co.edu.uniquindio.SOLID.Service;
 
 import co.edu.uniquindio.SOLID.Model.Empleado;
+import co.edu.uniquindio.SOLID.Model.Minimercado;
+import co.edu.uniquindio.SOLID.Model.DTO.EmpleadoDTO;
+import co.edu.uniquindio.SOLID.utils.Mappers.EmpleadoMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmpleadoService {
 
+    private final Minimercado minimercado = Minimercado.getInstancia();
 
-    public Empleado crearEmpleado(String id, String nombre, String rolStr) {
-        List<Empleado> empleados = new ArrayList<>();
-        if (buscarEmpleado(id) != null) {
-            throw new IllegalArgumentException("Ya existe un empleado con ese ID");
+    public List<EmpleadoDTO> listarEmpleados() {
+        List<EmpleadoDTO> lista = new ArrayList<>();
+        for (Empleado e : minimercado.getEmpleados()) {
+            lista.add(EmpleadoMapper.toDTO(e));
         }
-        Empleado empleado = new Empleado(id, nombre, Empleado.Rol.valueOf(rolStr));
-        empleados.add(empleado);
-        return empleado;
+        return lista;
     }
 
-    public Empleado buscarEmpleado(String id) {
-         List<Empleado> empleados = new ArrayList<>();
-        for (Empleado e : empleados) {
+    public String crearEmpleado(EmpleadoDTO dto) {
+        if (dto == null || dto.getId() == null || dto.getId().isEmpty()) {
+            return "ID de empleado obligatorio";
+        }
+        if (buscarEmpleadoEntity(dto.getId()) != null) {
+            return "Ya existe un empleado con ese ID";
+        }
+        Empleado nuevo = EmpleadoMapper.toEntity(dto);
+        minimercado.agregarEmpleado(nuevo);
+        return "OK";
+    }
+
+    public String actualizarEmpleado(EmpleadoDTO dto) {
+        if (dto == null || dto.getId() == null) return "Datos inválidos";
+        Empleado existente = buscarEmpleadoEntity(dto.getId());
+        if (existente == null) return "Empleado no encontrado";
+        EmpleadoMapper.updateEntityFromDTO(existente, dto);
+        return "OK";
+    }
+
+    public String eliminarEmpleado(String id) {
+        Empleado existente = buscarEmpleadoEntity(id);
+        if (existente == null) return "Empleado no encontrado";
+        minimercado.getEmpleados().remove(existente);
+        return "OK";
+    }
+
+    public String activarEmpleado(String id) {
+        Empleado existente = buscarEmpleadoEntity(id);
+        if (existente == null) return "Empleado no encontrado";
+        existente.activar();
+        return "OK";
+    }
+
+    public String inactivarEmpleado(String id) {
+        Empleado existente = buscarEmpleadoEntity(id);
+        if (existente == null) return "Empleado no encontrado";
+        existente.inactivar();
+        return "OK";
+    }
+
+    public Empleado buscarEmpleadoEntity(String id) {
+        for (Empleado e : minimercado.getEmpleados()) {
             if (e.getId().equals(id)) return e;
         }
         return null;
-    }
-
-    public Empleado actualizarEmpleado(String id, String nombre, String rolStr, Boolean activo) {
-        Empleado e = buscarEmpleado(id);
-        if (e == null) {
-            throw new IllegalArgumentException("Empleado no encontrado: " + id);
-        }
-        if (nombre != null) e.setNombre(nombre);
-        if (rolStr != null) e.setRol(Empleado.Rol.valueOf(rolStr));
-        if (activo != null) { if (activo) e.activar(); else e.inactivar(); }
-        return e;
-    }
-
-    public void eliminarEmpleado(String id) {
-        List<Empleado> empleados = new ArrayList<>();
-        Empleado e = buscarEmpleado(id);
-        if (e == null) {
-            throw new IllegalArgumentException("Empleado no encontrado: " + id);
-        }
-        empleados.remove(e);
     }
 }

@@ -98,3 +98,4 @@ public class Minimercado {
         entrada.confirmar();
         return entrada;
     }
+}
